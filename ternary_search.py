@@ -6,13 +6,6 @@ class Node:
         self.mid = None
         self.is_end = False
 
-    def to_string(self):
-        print("Character: " + str(self.char),
-              "Left: " + str(self.left),
-              "Right: " + str(self.right),
-              "Middle: " + str(self.mid),
-              "Leaf Node: " + str(self.is_end))
-
 
 class TernTree:
     def __init__(self):
@@ -28,33 +21,47 @@ class TernTree:
         new_node.char = char
         return new_node
 
-    def insert(self, node, key):
-        head = key[0]
-        tail = key[1:]
-
-        print(head)
-        print(node.left)
-
-        if len(key) == 0:
+    def insert(self, node, string):
+        if len(string) == 0:
+            # self.root_node = node
+            node.is_end = True
             return node
 
-        # In the case of the root node being created and passed in
-        if self.root_node is None:
-            self.root_node = node
-            self.root_node.char = head
+        head = string[0]
+        tail = string[1:]
+
+        if node.char is None:
+            node.char = head
             self.insert(node, tail)
-        elif not tail:
-            node.is_end = True
-        elif head < node.char:
-            node.left = self.insert(self.get_node(head), tail)
-        elif head > node.char:
-            node.right = self.insert(self.get_node(head), tail)
+        elif head < node.char and node.mid is not None:
+            if node.left is not None:
+                self.insert(node.left, string)
+            else:
+                node.left = self.get_node(head)
+                self.insert(node.left, tail)
+        elif head > node.char and node.mid is not None:
+            if node.right is not None:
+                self.insert(node.right, string)
+            else:
+                node.right = self.get_node(head)
+                self.insert(node.right, tail)
         else:
-            node.mid = self.insert(self.get_node(head), tail)
+            if node.mid is not None and node.char == head:
+                self.insert(node.mid, tail)
+            else:
+                node.mid = self.get_node(head)
+                self.insert(node.mid, tail)
+
+        self.root_node = node
 
     ########## TO-DO ##########
     def to_string(self, node):
-        return None
+        tree_nodes = {}
+        for k, v in node.__dict__.items():
+            tree_nodes[k] = v
+            if isinstance(v, Node):
+                tree_nodes[k] = self.to_string(v)
+        return tree_nodes
 
     def search(self, node, key):
         return None
@@ -62,9 +69,10 @@ class TernTree:
 
 tree = TernTree()
 root = Node()
-tree_list = ['Mike', 'Maryanne', 'Jeff', 'Eric', 'Ericah', 'Michael']
+tree_list = ['mike', 'jeff', 'eric', 'ericah']
 
 for i in tree_list:
     tree.insert(root, i)
 # print(tree.root_node)
 # print(tree.root_node.to_string())
+print(tree.to_string(tree.root_node))
