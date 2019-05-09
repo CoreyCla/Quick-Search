@@ -23,8 +23,8 @@ class TernTree:
 
     def insert(self, node, string):
         if len(string) == 0:
-            # self.root_node = node
-            node.is_end = True
+            node.mid = self.get_node(None)
+            node.mid.is_end = True
             return node
 
         head = string[0]
@@ -69,7 +69,7 @@ class TernTree:
 
 tree = TernTree()
 root = Node()
-tree_list = ['mike', 'jeff', 'eric', 'ericah']
+tree_list = ['eric', 'ericah', 'ericcc', 'ericcon', 'ericahn', 'mike', 'able', 'ableton', 'abernathy']
 
 for i in tree_list:
     tree.insert(root, i)
