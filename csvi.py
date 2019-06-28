@@ -11,8 +11,8 @@ class Csvi:
             reader = csv.DictReader(f, delimiter=',')
             return reader.fieldnames
 
-    # Returns data from .csv file formatted with the first column values as the key, and the rest of the row divided up
-    # into another dictionary where the keys are the column names and the values are the corresponding row values
+    # Returns data from .csv file formatted with the first column values as the keys, and the rest of the row divided up
+    # into another dictionary where the keys are the column names and the values are the corresponding row values.
     def get_rows_dict(self):
         reader = csv.DictReader(open(self.csv_file))
         result = {}
@@ -23,7 +23,7 @@ class Csvi:
         return result
 
     # Returns data from .csv file formatted with the first column values as the key, and the rest of the row divided up
-    # into list values
+    # into list values.
     def get_rows_list(self):
         reader = csv.reader(open(self.csv_file))
         inner_dict = {}
@@ -35,7 +35,7 @@ class Csvi:
         return inner_dict
 
     # Returns data from .csv file formatted with the header values as the keys, and a list of the respective column
-    # data as the values
+    # data as the values.
     def get_cols(self):
         reader = csv.DictReader(open(self.csv_file))
         inner_dict = {}
@@ -47,7 +47,8 @@ class Csvi:
         return inner_dict
 
     # Returns data from .csv file as a dictionary formatted with the header values (only the ones in the col_values
-    # list) as the keys, and a list of the respective column data as the values
+    # list) as the keys, and a list of the respective column data as the values. Needs refactoring to remove the mess
+    # of a nested for-loop.
     def get_cols_by_name(self, col_names: list):
         reader = csv.DictReader(open(self.csv_file))
 

@@ -84,17 +84,3 @@ class TernTree:
     # - Import/export tree to json
     # - Delete
 
-
-tree = TernTree()
-root = Node()
-tree_list = ['eric', 'mike', 'able', 'aria', 'bri', 'abby', 'erica', 'erin']
-search_list = ['jared', 'eric', 'ariana', 'aria', 'arias', 'able', 'ericah', 'erin']
-
-for i in tree_list:
-    tree.insert(root, i)
-
-for i in search_list:
-    if tree.search(tree.root_node, i):
-        print('true')
-    elif not tree.search(tree.root_node, i):
-        print('false')
